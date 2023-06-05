@@ -8,6 +8,7 @@ import {
     extend,
     type,
     uniqueId,
+    getFragment,
 } from '../../_modules/helpers';
 
 //  Add the translations.
@@ -477,7 +478,7 @@ export default class Mmenu {
         this.node.menu.addEventListener('click', event => {
 
             /** The href attribute for the clicked anchor. */
-            const href = (event.target as HTMLElement)?.closest('a[href]')?.getAttribute('href') || '';
+            const href = getFragment((event.target as HTMLElement)?.closest('a[href]')?.getAttribute('href')) || '';
             if (href.slice(0, 1) === '#') {
                 try {
 
@@ -666,7 +667,7 @@ export default class Mmenu {
         switch (this.opts.navbar.titleLink) {
             case 'anchor':
                 if (opener) {
-                    title.href = opener.getAttribute('href');
+                    title.href = getFragment(opener.getAttribute('href'));
                 }
                 break;
                 

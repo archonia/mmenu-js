@@ -2,7 +2,7 @@ import Mmenu from '../../core/oncanvas/mmenu.oncanvas';
 import OPTIONS from './options';
 import * as DOM from '../../_modules/dom';
 import * as media from '../../_modules/matchmedia';
-import { type, extend } from '../../_modules/helpers';
+import { type, extend, getFragment } from '../../_modules/helpers';
 
 
 export default function (this: Mmenu) {
@@ -83,7 +83,7 @@ export default function (this: Mmenu) {
                 }
 
                 try {
-                    const panel = DOM.find(this.node.menu, `${anchor.getAttribute('href')}.mm-panel`)[0];
+                    const panel = DOM.find(this.node.menu, `${getFragment(anchor.getAttribute('href'))}.mm-panel`)[0];
                     if (panel) {
                         evnt.preventDefault();
                         evnt.stopImmediatePropagation();

@@ -2,7 +2,7 @@ import Mmenu from '../../core/oncanvas/mmenu.oncanvas';
 import OPTIONS from './options';
 import CONFIGS from './configs';
 import * as DOM from '../../_modules/dom';
-import { extend } from '../../_modules/helpers';
+import { extend, getFragment } from '../../_modules/helpers';
 
 export default function (this: Mmenu) {
     this.opts.pageScroll = this.opts.pageScroll || {};
@@ -46,7 +46,7 @@ export default function (this: Mmenu) {
         });
 
         this.node.menu.addEventListener('click', event => {
-            const href = (event.target as HTMLElement)?.closest('a[href]')?.getAttribute('href') || '';
+            const href = getFragment((event.target as HTMLElement)?.closest('a[href]')?.getAttribute('href')) || '';
 
             section = anchorInPage(href);
             if (section) {
@@ -78,7 +78,7 @@ export default function (this: Mmenu) {
         this.bind('initListview:after', (listview: HTMLElement) => {
             const listitems = DOM.children(listview, '.mm-listitem');
             DOM.filterLIA(listitems).forEach(anchor => {
-                const section = anchorInPage(anchor.getAttribute('href'));
+                const section = anchorInPage(getFragment(anchor.getAttribute('href')));
 
                 if (section) {
                     scts.unshift(section);
@@ -105,7 +105,7 @@ export default function (this: Mmenu) {
                         let anchors = DOM.filterLIA(listitems);
 
                         anchors = anchors.filter(anchor =>
-                            anchor.matches('[href="#' + scts[s].id + '"]')
+                            anchor.matches('[href$="#' + scts[s].id + '"]')
                         );
 
                         if (anchors.length) {

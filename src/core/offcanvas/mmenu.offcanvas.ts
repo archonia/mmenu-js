@@ -7,6 +7,7 @@ import {
     uniqueId,
     cloneId,
     originalId,
+    getFragment,
 } from '../../_modules/helpers';
 
 const possiblePositions = [
@@ -107,7 +108,7 @@ export default function (this: Mmenu) {
     document.addEventListener('click', event => {
 
         /** THe href attribute for the clicked anchor. */
-        const href = (event.target as HTMLElement).closest('a')?.getAttribute('href');
+        const href = getFragment((event.target as HTMLElement).closest('a')?.getAttribute('href'));
 
         switch (href) {
             //	Open menu if the clicked anchor links to the menu.
@@ -176,7 +177,7 @@ Mmenu.prototype.close = function(this: Mmenu) {
     Mmenu.node.page.removeAttribute('inert');
 
     /** Element to focus. */
-    const focus = this.node.open || document.querySelector(`[href="#${this.node.menu.id}"]`) || null;
+    const focus = this.node.open || document.querySelector(`[href$="#${this.node.menu.id}"]`) || null;
     (focus as HTMLElement)?.focus();
     
     // Prevent html/body from scrolling due to focus.

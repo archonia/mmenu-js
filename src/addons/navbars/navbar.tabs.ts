@@ -1,5 +1,7 @@
 import Mmenu from '../../core/oncanvas/mmenu.oncanvas';
 import * as DOM from '../../_modules/dom';
+import { getFragment } from '../../_modules/helpers';
+
 export default function (this: Mmenu, navbar: HTMLElement) {
     navbar.classList.add('mm-navbar--tabs');
     navbar.closest('.mm-navbars').classList.add('mm-navbars--has-tabs');
@@ -48,7 +50,7 @@ export default function (this: Mmenu, navbar: HTMLElement) {
         //	Add animation class to panel.
         navbar.addEventListener('click', event => {
             /** The href for the clicked tab. */
-            const href = (event.target as HTMLElement)?.closest('.mm-navbar__tab')?.getAttribute('href');
+            const href = getFragment((event.target as HTMLElement)?.closest('.mm-navbar__tab')?.getAttribute('href'));
             try {
                 DOM.find(this.node.pnls, `${href}.mm-panel`)[0]?.classList.add('mm-panel--noanimation');
             } catch (err) { }
