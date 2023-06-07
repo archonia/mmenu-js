@@ -88,7 +88,6 @@ export default function (this: Mmenu) {
         this.node.menu.setAttribute('inert', 'true');
 
         if (possiblePositions.includes(options.position)) {
-            this.node.wrpr.classList.add(`mm-wrapper--position-${options.position}`);
             this.node.menu.classList.add(`mm-menu--position-${options.position}`);
         }
 
