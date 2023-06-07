@@ -2,7 +2,7 @@ import Mmenu from './../oncanvas/mmenu.oncanvas';
 import OPTIONS from './options';
 import CONFIGS from './configs';
 import * as DOM from '../../_modules/dom';
-import { extend, uniqueId, cloneId, originalId, } from '../../_modules/helpers';
+import { extend, uniqueId, cloneId, originalId, getFragment, } from '../../_modules/helpers';
 const possiblePositions = [
     'left',
     'left-front',
@@ -63,7 +63,6 @@ export default function () {
         this.node.menu.classList.add('mm-menu--offcanvas');
         this.node.menu.setAttribute('inert', 'true');
         if (possiblePositions.includes(options.position)) {
-            this.node.wrpr.classList.add(`mm-wrapper--position-${options.position}`);
             this.node.menu.classList.add(`mm-menu--position-${options.position}`);
         }
         //	Open if url hash equals menu id (usefull when user clicks the hamburger icon before the menu is created)
@@ -81,7 +80,7 @@ export default function () {
     document.addEventListener('click', event => {
         var _a;
         /** THe href attribute for the clicked anchor. */
-        const href = (_a = event.target.closest('a')) === null || _a === void 0 ? void 0 : _a.getAttribute('href');
+        const href = getFragment((_a = event.target.closest('a')) === null || _a === void 0 ? void 0 : _a.getAttribute('href'));
         switch (href) {
             //	Open menu if the clicked anchor links to the menu.
             case `#${originalId(this.node.menu.id)}`:
@@ -138,7 +137,7 @@ Mmenu.prototype.close = function () {
     Mmenu.node.blck.setAttribute('inert', 'true');
     Mmenu.node.page.removeAttribute('inert');
     /** Element to focus. */
-    const focus = this.node.open || document.querySelector(`[href="#${this.node.menu.id}"]`) || null;
+    const focus = this.node.open || document.querySelector(`[href$="#${this.node.menu.id}"]`) || null;
     (_a = focus) === null || _a === void 0 ? void 0 : _a.focus();
     // Prevent html/body from scrolling due to focus.
     document.body.scrollLeft = 0;

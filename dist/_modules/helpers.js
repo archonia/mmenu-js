@@ -104,3 +104,7 @@ export const originalId = (id) => {
     }
     return id;
 };
+export const getFragment = (href) => {
+    let t = href ? href.indexOf('#') : -1;
+    return (t != -1) ? href.slice(t) : null;
+};

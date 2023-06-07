@@ -18,7 +18,7 @@ import translate from './translations';
 import * as DOM from '../../_modules/dom';
 import * as i18n from '../../_modules/i18n';
 import * as media from '../../_modules/matchmedia';
-import { extend, type, uniqueId, } from '../../_modules/helpers';
+import { extend, type, uniqueId, getFragment, } from '../../_modules/helpers';
 //  Add the translations.
 translate();
 /**
@@ -347,7 +347,7 @@ export default class Mmenu {
         this.node.menu.addEventListener('click', event => {
             var _a, _b;
             /** The href attribute for the clicked anchor. */
-            const href = ((_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('a[href]')) === null || _b === void 0 ? void 0 : _b.getAttribute('href')) || '';
+            const href = getFragment((_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('a[href]')) === null || _b === void 0 ? void 0 : _b.getAttribute('href')) || '';
             if (href.slice(0, 1) === '#') {
                 try {
                     /** The targeted panel */
@@ -492,7 +492,7 @@ export default class Mmenu {
         switch (this.opts.navbar.titleLink) {
             case 'anchor':
                 if (opener) {
-                    title.href = opener.getAttribute('href');
+                    title.href = getFragment(opener.getAttribute('href'));
                 }
                 break;
             case 'parent':

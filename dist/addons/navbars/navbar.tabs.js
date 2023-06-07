@@ -1,4 +1,5 @@
 import * as DOM from '../../_modules/dom';
+import { getFragment } from '../../_modules/helpers';
 export default function (navbar) {
     navbar.classList.add('mm-navbar--tabs');
     navbar.closest('.mm-navbars').classList.add('mm-navbars--has-tabs');
@@ -39,7 +40,7 @@ export default function (navbar) {
         navbar.addEventListener('click', event => {
             var _a, _b, _c;
             /** The href for the clicked tab. */
-            const href = (_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('.mm-navbar__tab')) === null || _b === void 0 ? void 0 : _b.getAttribute('href');
+            const href = getFragment((_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('.mm-navbar__tab')) === null || _b === void 0 ? void 0 : _b.getAttribute('href'));
             try {
                 (_c = DOM.find(this.node.pnls, `${href}.mm-panel`)[0]) === null || _c === void 0 ? void 0 : _c.classList.add('mm-panel--noanimation');
             }

@@ -2,7 +2,7 @@ import Mmenu from '../../core/oncanvas/mmenu.oncanvas';
 import OPTIONS from './options';
 import CONFIGS from './configs';
 import * as DOM from '../../_modules/dom';
-import { extend } from '../../_modules/helpers';
+import { extend, getFragment } from '../../_modules/helpers';
 export default function () {
     this.opts.pageScroll = this.opts.pageScroll || {};
     this.conf.pageScroll = this.conf.pageScroll || {};
@@ -39,7 +39,7 @@ export default function () {
         });
         this.node.menu.addEventListener('click', event => {
             var _a, _b;
-            const href = ((_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('a[href]')) === null || _b === void 0 ? void 0 : _b.getAttribute('href')) || '';
+            const href = getFragment((_b = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('a[href]')) === null || _b === void 0 ? void 0 : _b.getAttribute('href')) || '';
             section = anchorInPage(href);
             if (section) {
                 event.preventDefault();
@@ -63,7 +63,7 @@ export default function () {
         this.bind('initListview:after', (listview) => {
             const listitems = DOM.children(listview, '.mm-listitem');
             DOM.filterLIA(listitems).forEach(anchor => {
-                const section = anchorInPage(anchor.getAttribute('href'));
+                const section = anchorInPage(getFragment(anchor.getAttribute('href')));
                 if (section) {
                     scts.unshift(section);
                 }
@@ -79,7 +79,7 @@ export default function () {
                         let panel = DOM.children(this.node.pnls, '.mm-panel--opened')[0];
                         let listitems = DOM.find(panel, '.mm-listitem');
                         let anchors = DOM.filterLIA(listitems);
-                        anchors = anchors.filter(anchor => anchor.matches('[href="#' + scts[s].id + '"]'));
+                        anchors = anchors.filter(anchor => anchor.matches('[href$="#' + scts[s].id + '"]'));
                         if (anchors.length) {
                             this.setSelected(anchors[0].parentElement);
                         }
